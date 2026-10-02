@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Operación Mina Segura</title>
+<style>
+:root{--coal:#101820;--gold:#ffc72c;--orange:#f57c00;--green:#14a44d;--red:#dc3545;--blue:#1f6feb;--paper:#f4f7fa;--white:#fff;--muted:#5e6b75}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#0b1117,#263544);font-family:Segoe UI,Arial,sans-serif;color:var(--coal);min-height:100vh}.app{max-width:1200px;margin:auto;padding:22px}.hero{background:linear-gradient(120deg,#111b24,#263847);color:white;border:2px solid var(--gold);border-radius:22px;padding:26px;box-shadow:0 16px 40px #0006}.brand{display:flex;align-items:center;gap:16px}.logo{width:72px;height:72px;border-radius:18px;background:var(--gold);display:grid;place-items:center;font-size:40px}.hero h1{margin:0;font-size:clamp(28px,5vw,52px)}.hero p{margin:8px 0 0;color:#d9e1e8;font-size:18px}.scorebar{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}.metric{background:white;border-radius:16px;padding:14px;text-align:center;border-bottom:5px solid var(--gold)}.metric b{display:block;font-size:26px}.metric span{color:var(--muted);font-size:13px}.panel{background:var(--paper);border-radius:20px;padding:22px;margin-top:18px;box-shadow:0 12px 30px #0004}.setup{display:grid;grid-template-columns:2fr 1fr;gap:14px}.field label{font-weight:700;display:block;margin-bottom:6px}.field input{width:100%;padding:13px;border:2px solid #cad3dc;border-radius:12px;font-size:16px}.btn{border:0;border-radius:12px;padding:12px 18px;font-weight:800;font-size:15px;cursor:pointer;transition:.2s}.btn:hover{transform:translateY(-2px)}.primary{background:var(--gold);color:#171717}.secondary{background:#dbe5ee}.danger{background:var(--red);color:white}.level-title{display:flex;justify-content:space-between;gap:12px;align-items:center}.badge{background:var(--gold);padding:8px 12px;border-radius:999px;font-weight:800}.context{background:white;border-left:7px solid var(--orange);padding:16px;border-radius:12px;margin:14px 0;line-height:1.55}.warning{background:#fff4d6;border:2px solid #ffd36a;padding:13px;border-radius:12px;font-weight:700}.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:16px}.card{background:white;border:3px solid transparent;border-radius:16px;padding:16px;cursor:pointer;position:relative;transition:.2s;box-shadow:0 5px 14px #20304020}.card:hover{border-color:#95acc0;transform:translateY(-2px)}.card.selected{border-color:var(--blue);background:#edf5ff}.card.locked{opacity:.55;cursor:not-allowed}.letter{position:absolute;right:12px;top:10px;background:#253747;color:white;border-radius:10px;padding:6px 10px;font-weight:900}.type{color:var(--blue);font-weight:800;font-size:13px;text-transform:uppercase}.card h3{padding-right:38px}.cost{display:flex;justify-content:space-between;border-top:1px solid #dbe2e8;padding-top:10px;margin-top:12px;font-weight:800}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.feedback{margin-top:16px;padding:16px;border-radius:13px;display:none;line-height:1.5}.feedback.ok{display:block;background:#dbf5e5;border-left:7px solid var(--green)}.feedback.bad{display:block;background:#ffe1e4;border-left:7px solid var(--red)}.progress{height:12px;background:#cfd8e1;border-radius:99px;overflow:hidden;margin:14px 0}.progress div{height:100%;background:linear-gradient(90deg,var(--gold),var(--green));width:0;transition:.5s}.hidden{display:none!important}.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.result{padding:20px;border-radius:16px;color:white}.approved{background:var(--green)}.conditional{background:var(--orange)}.closed{background:var(--red)}table{width:100%;border-collapse:collapse;background:white;border-radius:12px;overflow:hidden}th,td{padding:11px;border-bottom:1px solid #dce3e9;text-align:left}th{background:#263847;color:white}.small{font-size:13px;color:var(--muted)}.footer{color:#dbe3ea;text-align:center;padding:18px;font-size:13px}@media(max-width:760px){.scorebar,.cards,.setup,.summary-grid{grid-template-columns:1fr}.app{padding:10px}.hero,.panel{padding:16px}}
+@media print{body{background:white}.hero{color:#111;background:white}.btn,.cards,.warning{display:none}.panel{box-shadow:none}.footer{color:#111}}
+
+.normbox{background:#eef7ff;border:2px solid #68a7e3;border-radius:14px;padding:16px;margin:15px 0}.normbox h3{margin-top:0;color:#174f7d}.quiz{background:#fff;border:2px solid #cbd7e2;border-radius:14px;padding:16px;margin:15px 0}.quiz button{display:block;width:100%;text-align:left;margin:8px 0;background:#edf2f6}.quiz button.correct{background:#d8f5e3}.quiz button.wrong{background:#ffe1e4}.event{background:linear-gradient(120deg,#54205f,#8d3da1);color:white;border-radius:14px;padding:16px;margin-top:14px}.rolebar{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.role{background:#253747;color:white;padding:7px 10px;border-radius:999px;font-size:13px}.timer{color:#b42318}.inspection{background:#fff7e6;border:2px dashed #f0a500;padding:14px;border-radius:14px;margin-top:14px}.normref{font-size:13px;color:#52616d;border-top:1px solid #d6e0e8;padding-top:9px}.decision-note{width:100%;min-height:75px;border:2px solid #cad3dc;border-radius:12px;padding:10px;font-family:inherit}.lifeline{background:#6f42c1;color:white}.pulse{animation:pulse 1s 2}@keyframes pulse{50%{transform:scale(1.02);box-shadow:0 0 0 6px #ffc72c55}}
+</style>
+</head>
+<body>
+<div class="app">
+<section class="hero">
+ <div class="brand"><div class="logo">⛏️</div><div><h1>Operación Mina Segura</h1><p>Juego práctico de decisiones seguras para Ingeniería de Minas</p></div></div>
+</section>
+<div class="scorebar">
+ <div class="metric"><b id="teamLabel">Sin equipo</b><span>Junta de Seguridad</span></div>
+ <div class="metric"><b id="levelLabel">0 / 10</b><span>Nivel</span></div>
+ <div class="metric"><b id="budgetLabel">300</b><span>PISST disponibles</span></div>
+ <div class="metric"><b id="riskLabel">300</b><span>IRR del juego</span></div>
+</div>
+<section id="setup" class="panel">
+ <h2>Conformen la Junta de Seguridad y Operaciones</h2>
+ <div class="setup">
+  <div class="field"><label>Nombre del equipo</label><input id="teamName" maxlength="45" placeholder="Ejemplo: Guardianes del Socavón"></div>
+  <div class="field"><label>Número de integrantes</label><input id="members" type="number" min="3" max="4" value="3"></div>
+ </div>
+ <p><b>Rol del equipo:</b> Junta de Seguridad y Operaciones de la Mina.</p><p><b>Misión:</b> reduzcan el IRR a 30 puntos o menos sin gastar más de 300 PISST. En cada nivel pueden seleccionar hasta tres medidas. Los controles administrativos y el EPP no reemplazan los controles superiores.</p>
+ <button class="btn primary" onclick="startGame()">Iniciar operación</button>
+</section>
+<section id="game" class="panel hidden">
+ <div class="level-title"><h2 id="levelTitle"></h2><span id="levelBadge" class="badge"></span></div>
+ <div class="progress"><div id="progressFill"></div></div>
+ <div id="context" class="context"></div>
+ <div class="warning">Primero decidan si la operación debe suspenderse. Después seleccionen hasta tres medidas, dando prioridad a eliminación, sustitución o ingeniería.</div>
+ <div id="normBox" class="normbox"></div>
+ <div id="cards" class="cards"></div>
+ <div class="actions">
+  <button class="btn primary" onclick="evaluateLevel()">Cerrar decisión del nivel</button>
+  <button class="btn secondary" onclick="clearSelection()">Limpiar selección</button>
+ </div>
+ <div id="feedback" class="feedback"></div>
+ <div id="continueBox" class="actions hidden"><button class="btn primary" onclick="nextLevel()">Continuar al siguiente nivel</button></div>
+</section>
+<section id="summary" class="panel hidden">
+ <h2>Plan de Reapertura Minera</h2>
+ <div class="summary-grid">
+  <div id="finalResult" class="result"></div>
+  <div><h3>Balance de la Junta</h3><p><b>PISST utilizados:</b> <span id="spent"></span></p><p><b>IRR final:</b> <span id="finalRisk"></span></p><p><b>Accidentes simulados:</b> <span id="accidents"></span></p></div>
+ </div>
+ <h3>Registro de decisiones</h3><table><thead><tr><th>Nivel</th><th>Medidas seleccionadas</th><th>Costo</th><th>Variación IRR</th></tr></thead><tbody id="logBody"></tbody></table>
+ <h3>Cierre del juego</h3>
+ <ol><li>¿Qué condición impedía el ingreso?</li><li>¿Qué control actuó sobre la fuente o el medio?</li><li>¿Qué evidencia exigirían antes de reabrir?</li><li>¿Qué riesgo residual permanece?</li><li>¿Qué medida faltaría incorporar al plan definitivo?</li></ol>
+ <div class="actions"><button class="btn primary" onclick="window.print()">Imprimir resultado</button><button class="btn danger" onclick="restart()">Reiniciar juego</button></div>
+ <p class="small">Simulación académica. No reemplaza la evaluación de riesgos, el diseño de ventilación, los procedimientos ni la autorización operacional de una mina real.</p>
+</section>
+<div class="footer">Actividad educativa de Seguridad y Salud en el Trabajo</div>
+</div>
+<script>
+const levels=[
+{title:'Nivel 1: Atmósfera peligrosa en el frente ciego',context:'En un frente ciego de 22 metros se registran O₂ 18,0 %, CH₄ 1,8 % y CO 25 ppm. El supervisor pretende enviar personal para instalar sostenimiento en madera.',required:['B'],options:[
+{id:'A',name:'Ingresar con autorrescatador y mascarilla P100',type:'EPP aislado',cost:5,reduction:0,penalty:30,fine:15,bad:true,msg:'El autorrescatador es para escape y el EPP no autoriza trabajo en una atmósfera peligrosa.'},
+{id:'B',name:'Instalar ventilación auxiliar y controlar recirculación',type:'Ingeniería',cost:25,reduction:25,msg:'Controla el medio; la reapertura exige mediciones posteriores aceptables y estables.'},
+{id:'C',name:'Suspender, desenergizar, controlar ignición y registrar',type:'Administrativo',cost:10,reduction:15,needs:'B',msg:'Complementa la ventilación y mantiene la restricción de ingreso.'},
+{id:'D',name:'Monitoreo multigás calibrado y equipos de escape',type:'Protección complementaria',cost:5,reduction:10,needs:'B',msg:'Complementa, pero no sustituye, la ventilación.'}]},
+{title:'Nivel 2: Tolva atascada y espacio confinado',context:'Una tolva subterránea de ocho metros está obstruida. La práctica habitual es bajar a un trabajador con una cuerda y una porra. ¿Puede eliminarse la necesidad de ingreso?',required:['B'],options:[
+{id:'A',name:'Bajar al trabajador con arnés, casco y línea de vida',type:'EPP aislado',cost:5,reduction:0,penalty:30,fine:15,bad:true,msg:'No controla atrapamiento, sepultamiento, energías ni atmósferas adversas.'},
+{id:'B',name:'Implementar desatasco remoto técnicamente diseñado',type:'Eliminación',cost:35,reduction:35,msg:'Evita el ingreso humano.'},
+{id:'C',name:'Aislar energías, bloquear, emitir permiso y asignar vigía',type:'Administrativo',cost:10,reduction:15,needs:'B',msg:'El permiso es complementario y no controla por sí solo el peligro.'},
+{id:'D',name:'Evaluar y monitorear la atmósfera',type:'Verificación',cost:5,reduction:10,needs:'B',msg:'La medición debe responder a posibles cambios.'}]},
+{title:'Nivel 3: Incompatibilidad de sustancias y explosivos',context:'Explosivos, diésel, nitrato de amonio y detonadores comparten la misma zona. Hay recipientes sin identificación y no están disponibles las FDS.',either:['B','C'],options:[
+{id:'A',name:'Entregar guantes y trajes sin reorganizar el almacenamiento',type:'EPP aislado',cost:5,reduction:0,penalty:30,fine:15,bad:true,msg:'El EPP no controla incompatibilidad, incendio ni iniciación.'},
+{id:'B',name:'Sustituir por alternativa aprobada tras evaluación técnica',type:'Sustitución',cost:35,reduction:35,msg:'Requiere diseño, compatibilidad y autorización competente.'},
+{id:'C',name:'Segregar explosivos, accesorios y sustancias incompatibles',type:'Ingeniería',cost:25,reduction:25,msg:'Reduce la interacción peligrosa.'},
+{id:'D',name:'Inventario, etiquetado, FDS y matriz de compatibilidad',type:'Administrativo',cost:10,reduction:15,needsEither:['B','C'],msg:'Comunica el peligro, pero no reemplaza la segregación.'}]},
+{title:'Nivel 4: Techo fracturado y falla geomecánica',context:'En una intersección aparecen grietas nuevas, caída de fragmentos y deformación del sostenimiento. Producción solicita continuar mientras llega material de refuerzo.',required:['B'],options:[
+{id:'A',name:'Entregar cascos nuevos y acelerar el paso',type:'EPP aislado',cost:5,reduction:0,penalty:30,fine:15,bad:true,msg:'El casco no controla el colapso del macizo rocoso.'},
+{id:'B',name:'Aislar el sector y ejecutar evaluación geomecánica y rediseño del sostenimiento',type:'Ingeniería',cost:30,reduction:30,msg:'Actúa sobre la estabilidad y condiciona la reapertura.'},
+{id:'C',name:'Instalar refuerzo conforme al diseño aprobado',type:'Ingeniería',cost:25,reduction:25,needs:'B',msg:'Debe responder al diagnóstico y al plan de sostenimiento.'},
+{id:'D',name:'Inspección documentada y control de acceso',type:'Administrativo',cost:10,reduction:15,needs:'B',msg:'Apoya el seguimiento, pero no reemplaza el sostenimiento.'}]},
+{title:'Nivel 5: Transporte sobre riel y pérdida de control',context:'Una locomotora presenta freno irregular, la vía tiene material suelto y peatones comparten el tramo sin separación ni comunicación efectiva.',required:['B'],options:[
+{id:'A',name:'Entregar chalecos reflectivos y permitir el viaje',type:'EPP aislado',cost:5,reduction:0,penalty:30,fine:15,bad:true,msg:'La visibilidad no corrige la falla de frenado ni la interacción vehículo-peatón.'},
+{id:'B',name:'Retirar de servicio, reparar y verificar frenos y vía',type:'Ingeniería',cost:25,reduction:25,msg:'Controla la condición mecánica antes de operar.'},
+{id:'C',name:'Separar rutas peatonales y puntos de refugio',type:'Ingeniería',cost:25,reduction:25,msg:'Reduce la exposición a atropellamiento y atrapamiento.'},
+{id:'D',name:'Señalización, comunicación y plan de tráfico',type:'Administrativo',cost:10,reduction:15,needs:'B',msg:'Complementa las condiciones mecánicas seguras.'}]},
+{title:'Nivel 6: Tablero eléctrico en ambiente húmedo',context:'Un tablero alimenta bombas y ventilación. Presenta humedad, cableado deteriorado y protecciones puenteadas. Un trabajador propone secarlo con un trapo sin suspender energía.',required:['B'],options:[
+{id:'A',name:'Usar guantes dieléctricos y secar energizado',type:'EPP aislado',cost:5,reduction:0,penalty:30,fine:15,bad:true,msg:'El EPP no justifica intervenir equipos energizados deteriorados.'},
+{id:'B',name:'Desenergizar, bloquear, verificar ausencia de tensión y reparar',type:'Eliminación/ingeniería',cost:30,reduction:30,msg:'Elimina la energía durante la intervención y corrige la falla.'},
+{id:'C',name:'Instalar envolvente, puesta a tierra y protecciones adecuadas',type:'Ingeniería',cost:25,reduction:25,needs:'B',msg:'Mejora la protección frente a humedad y fallas.'},
+{id:'D',name:'Autorizar personal competente e inspección periódica',type:'Administrativo',cost:10,reduction:15,needs:'B',msg:'Complementa el control técnico.'}]},
+{title:'Nivel 7: Incendio en banda transportadora',context:'Se detecta olor a caucho, rodillo recalentado y acumulación de carbón bajo una banda. El turno propone continuar hasta terminar la producción.',required:['B'],options:[
+{id:'A',name:'Dejar un extintor junto a la banda y continuar',type:'Protección aislada',cost:5,reduction:0,penalty:30,fine:15,bad:true,msg:'Un extintor no corrige el recalentamiento ni la acumulación combustible.'},
+{id:'B',name:'Detener, aislar energía y corregir fricción y rodillos',type:'Eliminación/ingeniería',cost:25,reduction:25,msg:'Controla la fuente de ignición.'},
+{id:'C',name:'Retirar acumulaciones y mejorar detección y supresión',type:'Ingeniería',cost:25,reduction:25,needs:'B',msg:'Reduce la carga combustible y mejora la respuesta.'},
+{id:'D',name:'Inspección preoperacional y procedimiento de emergencia',type:'Administrativo',cost:10,reduction:15,needs:'B',msg:'Complementa los controles físicos.'}]},
+{title:'Nivel 8: Ingreso súbito de agua',context:'Después de lluvias intensas aumenta el caudal en una labor baja. Una bomba presenta fallas y no existe confirmación actualizada de labores antiguas cercanas.',required:['B'],options:[
+{id:'A',name:'Entregar botas altas y continuar el avance',type:'EPP aislado',cost:5,reduction:0,penalty:30,fine:15,bad:true,msg:'Las botas no controlan inundación, atrapamiento ni pérdida de rutas de salida.'},
+{id:'B',name:'Suspender, evacuar y evaluar la fuente y conexiones hidráulicas',type:'Eliminación/verificación',cost:25,reduction:25,msg:'Evita exposición mientras se caracteriza el peligro.'},
+{id:'C',name:'Restablecer bombeo redundante y barreras de control',type:'Ingeniería',cost:25,reduction:25,needs:'B',msg:'Aumenta capacidad y confiabilidad del control de agua.'},
+{id:'D',name:'Monitorear caudal, alarmas y plan de evacuación',type:'Administrativo',cost:10,reduction:15,needs:'B',msg:'Permite respuesta ante cambios, sin reemplazar el control hidráulico.'}]},
+{title:'Nivel 9: Tiro fallido después de la voladura',context:'Tras la voladura se sospecha un tiro fallido. Un trabajador quiere entrar inmediatamente para recuperar cable y revisar manualmente el barreno.',required:['B'],options:[
+{id:'A',name:'Autorizar el ingreso con careta y chaleco',type:'EPP aislado',cost:5,reduction:0,penalty:30,fine:15,bad:true,msg:'El EPP no controla una iniciación inesperada ni gases posvoladura.'},
+{id:'B',name:'Aislar el área y aplicar el procedimiento específico de tiro fallido',type:'Administrativo crítico',cost:20,reduction:25,msg:'Impide manipulación improvisada y exige dirección competente.'},
+{id:'C',name:'Ventilar y verificar atmósfera antes de autorizar reingreso',type:'Ingeniería/verificación',cost:20,reduction:20,needs:'B',msg:'Controla contaminantes antes de cualquier reingreso autorizado.'},
+{id:'D',name:'Registrar, señalizar y controlar personal autorizado',type:'Administrativo',cost:10,reduction:15,needs:'B',msg:'Mantiene trazabilidad y control de acceso.'}]},
+{title:'Nivel 10: Polvo de carbón y riesgo de explosión',context:'En galerías de retorno se observan depósitos finos de polvo de carbón, limpieza deficiente y fuentes potenciales de ignición. La producción plantea usar únicamente respiradores.',required:['B'],options:[
+{id:'A',name:'Entregar respiradores y mantener la producción',type:'EPP aislado',cost:5,reduction:0,penalty:30,fine:15,bad:true,msg:'El respirador no controla propagación de incendio o explosión.'},
+{id:'B',name:'Suspender fuentes de ignición y retirar depósitos de polvo',type:'Eliminación',cost:25,reduction:25,msg:'Reduce combustible dispersable y controla iniciación.'},
+{id:'C',name:'Implementar controles de inertización o barreras según diseño técnico',type:'Ingeniería',cost:30,reduction:30,needs:'B',msg:'Limita la participación o propagación del polvo mediante solución diseñada.'},
+{id:'D',name:'Programa de inspección, muestreo y limpieza',type:'Administrativo',cost:10,reduction:15,needs:'B',msg:'Sostiene el control, pero no reemplaza las medidas físicas.'}]}
+];
+
+const knowledge=[
+{norma:'Decreto 1886 de 2015, modificado por el Decreto 944 de 2022',regla:'La condición atmosférica insegura exige impedir la exposición, controlar fuentes de ignición, restablecer ventilación y verificar antes del reingreso.',q:'¿Qué decisión tiene prioridad ante una atmósfera minera insegura?',a:['Autorizar ingreso con EPP','Suspender y controlar antes del reingreso','Continuar con vigilancia visual'],ok:1},
+{norma:'Resolución 0491 de 2020, modificada por la Resolución 2605 de 2020',regla:'El trabajo en espacios confinados exige gestión del escenario, identificación y evaluación, controles, permiso cuando corresponda, roles, medición, comunicación y respuesta a emergencias.',q:'¿El permiso de trabajo elimina por sí mismo el riesgo del espacio confinado?',a:['Sí, reemplaza los controles','No, es un control administrativo complementario','Sí, cuando lo firma el supervisor'],ok:1},
+{norma:'Decreto 1496 de 2018 y reglamento de seguridad minera subterránea',regla:'El SGA armoniza la clasificación y comunicación de peligros químicos. La identificación documental no reemplaza la segregación de materiales incompatibles.',q:'¿Qué medida controla primero la incompatibilidad física?',a:['Solo colocar etiquetas','Segregar o sustituir según evaluación','Entregar guantes'],ok:1},
+{norma:'Decreto 1886 de 2015, modificado por el Decreto 944 de 2022',regla:'Las labores subterráneas requieren gestión del sostenimiento. Una señal de inestabilidad obliga a aislar, evaluar y controlar antes de continuar.',q:'¿Qué evidencia es necesaria antes de reabrir el sector?',a:['Una orden verbal de producción','Evaluación y sostenimiento conforme al diseño','Cascos nuevos'],ok:1},
+{norma:'Decreto 1886 de 2015, modificado por el Decreto 944 de 2022',regla:'Los equipos de transporte deben operar en condiciones seguras. Una falla de frenado exige retirar el equipo de servicio y corregir la condición.',q:'¿Qué control debe aplicarse primero?',a:['Chaleco reflectivo','Retiro de servicio y reparación','Señalización únicamente'],ok:1},
+{norma:'Decreto 1886 de 2015, modificado por el Decreto 944 de 2022',regla:'La intervención eléctrica debe impedir exposición a energía peligrosa mediante desenergización, aislamiento, verificación y reparación por personal competente.',q:'¿Qué autoriza la intervención del tablero?',a:['Guantes dieléctricos solamente','Ausencia de tensión verificada y control de energías','Experiencia del trabajador'],ok:1},
+{norma:'Decreto 1886 de 2015, modificado por el Decreto 944 de 2022',regla:'Ante recalentamiento y material combustible, se debe detener, aislar la energía y eliminar la causa antes de reiniciar.',q:'¿Un extintor permite mantener la banda operando?',a:['Sí','No, es protección complementaria','Sí, si hay dos extintores'],ok:1},
+{norma:'Decreto 1886 de 2015, modificado por el Decreto 944 de 2022',regla:'Una amenaza de inundación exige suspensión, evacuación, evaluación de la fuente y restablecimiento de controles de drenaje antes del reingreso.',q:'¿Cuál es la primera decisión ante aumento no controlado del caudal?',a:['Continuar con botas','Suspender y evacuar','Aumentar la velocidad de avance'],ok:1},
+{norma:'Decreto 1886 de 2015, modificado por el Decreto 944 de 2022',regla:'Un tiro fallido requiere aislamiento del área y aplicación del procedimiento específico bajo dirección competente. No admite recuperación improvisada.',q:'¿Quién puede autorizar el manejo del tiro fallido?',a:['Cualquier trabajador experimentado','Personal competente conforme al procedimiento','El primero que llegue'],ok:1},
+{norma:'Decreto 1886 de 2015, modificado por el Decreto 944 de 2022',regla:'La prevención de explosiones exige controlar fuentes de ignición y acumulaciones de polvo, con medidas de ingeniería y gestión sostenida.',q:'¿El respirador controla una explosión de polvo de carbón?',a:['Sí','No','Solo en turno nocturno'],ok:1}
+];
+
+
+let state={team:'',level:0,budget:300,risk:300,accidents:0,selected:[],logs:[],closed:false};
+function startGame(){const n=document.getElementById('teamName').value.trim();if(!n){alert('Escriban el nombre del equipo.');return}state.team=n;document.getElementById('setup').classList.add('hidden');document.getElementById('game').classList.remove('hidden');render()}
+function render(){const l=levels[state.level];state.selected=[];state.closed=false;document.getElementById('feedback').className='feedback';document.getElementById('feedback').innerHTML='';document.getElementById('continueBox').classList.add('hidden');document.getElementById('levelTitle').textContent=l.title;document.getElementById('levelBadge').textContent=`Reto ${state.level+1} de 10`;document.getElementById('context').textContent=l.context;document.getElementById('progressFill').style.width=`${(state.level)/10*100}%`;const c=document.getElementById('cards');c.innerHTML='';l.options.forEach(o=>{const d=document.createElement('div');d.className='card';d.dataset.id=o.id;d.onclick=()=>toggle(o.id,d);d.innerHTML=`<span class="letter">${o.id}</span><div class="type">${o.type}</div><h3>${o.name}</h3><div class="cost"><span>Costo: ${o.cost} PISST</span><span>Impacto potencial: ${o.bad?'+30':`−${o.reduction}`} IRR</span></div>`;c.appendChild(d)});renderNormSimple();updateScore()}
+
+function renderNormSimple(){const k=knowledge[state.level];document.getElementById('normBox').innerHTML=`<h3>Clave normativa</h3><p><b>${k.norma}</b></p><p>${k.regla}</p>`}
+function toggle(id,el){if(state.closed)return;const i=state.selected.indexOf(id);if(i>=0){state.selected.splice(i,1);el.classList.remove('selected')}else{if(state.selected.length>=3){alert('Solo pueden seleccionar hasta tres medidas por nivel.');return}state.selected.push(id);el.classList.add('selected')}}
+function clearSelection(){if(state.closed)return;state.selected=[];document.querySelectorAll('.card').forEach(x=>x.classList.remove('selected'))}
+function evaluateLevel(){if(state.closed)return;if(!state.selected.length){alert('Seleccionen al menos una medida.');return}const l=levels[state.level],chosen=l.options.filter(o=>state.selected.includes(o.id));let cost=chosen.reduce((s,o)=>s+o.cost,0);if(cost>state.budget){show('bad',`Presupuesto insuficiente. La selección cuesta ${cost} PISST y solo quedan ${state.budget}.`);return}let reduction=0,penalty=0,fines=0,acc=0,notes=[];chosen.forEach(o=>{let effective=true;if(o.needs&&!state.selected.includes(o.needs))effective=false;if(o.needsEither&&!o.needsEither.some(x=>state.selected.includes(x)))effective=false;if(o.bad){penalty+=o.penalty;fines+=o.fine;acc++;notes.push(`❌ ${o.id}: ${o.msg}`)}else if(effective){reduction+=o.reduction;notes.push(`✅ ${o.id}: ${o.msg}`)}else{notes.push(`⚠️ ${o.id}: no reduce el IRR porque fue seleccionada sin un control superior compatible.`)}});let missing=false;if(l.required&&!l.required.every(x=>state.selected.includes(x)))missing=true;if(l.either&&!l.either.some(x=>state.selected.includes(x)))missing=true;if(missing){penalty+=10;notes.push('⚠️ Omitieron el control principal del nivel: se agregan 10 puntos de IRR.')}const totalCost=cost+fines;if(totalCost>state.budget){show('bad',`La decisión genera multas y requiere ${totalCost} PISST. El presupuesto disponible es ${state.budget}. Revisen la selección.`);return}state.budget-=totalCost;const before=state.risk;state.risk=Math.max(0,state.risk-reduction+penalty);state.accidents+=acc;state.logs.push({level:state.level+1,choices:state.selected.join(', '),cost:totalCost,delta:state.risk-before});state.closed=true;updateScore();show(acc||missing?'bad':'ok',`<b>Decisión registrada.</b><br>${notes.join('<br>')}<br><br><b>Costo total:</b> ${totalCost} PISST. <b>IRR:</b> ${before} → ${state.risk}.`);document.getElementById('continueBox').classList.remove('hidden');document.querySelectorAll('.card').forEach(x=>x.classList.add('locked'))}
+function show(type,html){const f=document.getElementById('feedback');f.className=`feedback ${type}`;f.innerHTML=html}
+function nextLevel(){if(state.level<9){state.level++;render()}else{finish()}}
+function updateScore(){document.getElementById('teamLabel').textContent=state.team||'Sin equipo';document.getElementById('levelLabel').textContent=`${state.level+1} / 10`;document.getElementById('budgetLabel').textContent=state.budget;document.getElementById('riskLabel').textContent=state.risk}
+function finish(){document.getElementById('game').classList.add('hidden');document.getElementById('summary').classList.remove('hidden');document.getElementById('progressFill').style.width='100%';document.getElementById('spent').textContent=300-state.budget;document.getElementById('finalRisk').textContent=state.risk;document.getElementById('accidents').textContent=state.accidents;const r=document.getElementById('finalResult');let cls,title,text;if(state.risk<=30&&state.budget>=0&&state.accidents===0){cls='approved';title='Concepto favorable de reapertura';text='El equipo priorizó controles superiores y mantuvo viabilidad presupuestal.'}else if(state.risk<=80&&state.budget>=0&&state.accidents===0){cls='conditional';title='Operación condicionada';text='Se requieren controles adicionales y verificación antes de habilitar todos los frentes.'}else{cls='closed';title='Cierre preventivo';text='El IRR, las decisiones adoptadas o los accidentes simulados impiden la reapertura.'}r.className=`result ${cls}`;r.innerHTML=`<h2>${title}</h2><p>${text}</p><b>${state.team}</b>`;document.getElementById('logBody').innerHTML=state.logs.map(x=>`<tr><td>${x.level}</td><td>${x.choices}</td><td>${x.cost}</td><td>${x.delta>0?'+':''}${x.delta}</td></tr>`).join('')}
+function restart(){location.reload()}
+</script>
+</body>
+</html>
